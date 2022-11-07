@@ -331,7 +331,7 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has a button that creates a todo item, and moves it to the \"Waiting on\" section", points: 2 do
+  it "has a button that logs a package delivery, and moves it to the \"Waiting on\" section", points: 2 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
