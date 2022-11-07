@@ -40,10 +40,3 @@ Other notes:
 
 All other implementation details are up to you.
 
-
----
-
-- check for h2's inside divs
-- run through test titles
-- order better
-- points better

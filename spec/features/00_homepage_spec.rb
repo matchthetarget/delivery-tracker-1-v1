@@ -90,7 +90,7 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has an h2 element with the text \"Waiting on\"", points: 1 do
+  it "has an h2 element within the \"waiting_on\" div with the text \"Waiting on\"", points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -104,10 +104,12 @@ describe "The home page" do
       fill_in "Password", with: user_jacob.password
       find("button", :text => /Sign in/i ).click
     end
-
+    
     visit("/")
     
-    expect(page).to have_tag("h2", :text => /Waiting on/i)
+    within(:css, "div.waiting_on") do
+      expect(page).to have_tag("h2", :text => /Waiting on/i)
+    end
   end
 end
 
@@ -135,7 +137,7 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has an h2 element with the text \"Received\"", points: 1 do
+  it "has an h2 element within the \"received\" div with the text \"Received\"", points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -151,11 +153,12 @@ describe "The home page" do
     end
 
     visit("/")
-    
-    expect(page).to have_tag("h2", :text => /Received/i)
+
+    within(:css, "div.waiting_on") do
+      expect(page).to have_tag("h2", :text => /Received/i)
+    end
   end
 end
-
 
 describe "The home page" do
   it "has a label the text \"Description\" with a matching text input", points: 1,  hint: h("label_for_input copy_must_match") do

@@ -75,8 +75,8 @@ describe "The Received section" do
     visit("/")
 
     formatted_updated_at_time = time_ago_in_words(updated_at)
-    within(:css, "div.waiting_on") do
-      expect(page).to have_text(/Updated \s*#{formatted_updated_at_time} ago/)
+    within(:css, "div.received") do
+      expect(page).to have_text(/Updated\s*#{formatted_updated_at_time} ago/)
     end
   end
 end
@@ -119,6 +119,35 @@ describe "The Received section" do
   end
 end
 
+describe "The home page" do
+  it "displays the messaage, \"Added to list\", after logging a delivery", points: 1, hint: h("flash_messages") do
+    visit("/user_sign_in")
+    user_jacob = User.new
+    user_jacob.email = "jacob_#{rand(100)}@example.com"
+    user_jacob.password = "password"
+    user_jacob.save
+
+    visit "/user_sign_in"
+
+    within(:css, "form") do
+      fill_in "Email", with: user_jacob.email
+      fill_in "Password", with: user_jacob.password
+      find("button", :text => /Sign in/i ).click
+    end
+
+    visit("/")
+
+    formatted_date = 2.days.from_now.strftime("%m/%d/%Y")
+    within(:css, "form") do
+      fill_in "Description", with: "New phone"
+      fill_in "Supposed to arrive on", with: formatted_date
+      fill_in "Details", with: "This package is important!"
+      find("button", :text => /Log delivery/i ).click
+    end
+    
+    expect(page).to have_text(/Added to list/)
+  end
+end
 
 describe "The text of the expected arrival date" do
   it "is darkred when the date is more than 3 days ago", points: 1, js: true do

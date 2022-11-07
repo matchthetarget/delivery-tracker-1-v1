@@ -22,3 +22,5 @@ en:
                         The argument to the `redirect_to()` method is **a URL** that we want to send the user to which will trigger _a completely different action_.
 
                         Don't provide the `redirect_to()` method with a filename as an argument, or the `render()` method with a URL as an argument.
+    flash_messages: |
+                         Flash messages are messages that only appear for one page load and then disappear. Flash messages can be set in the `redirect_to()` method, but won't appear in the interface until you update your View templates. Read more [about flash messages here](https://chapters.firstdraft.com/chapters/850#flash-messages).
