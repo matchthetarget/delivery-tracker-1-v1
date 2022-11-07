@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FinalProject</title>
+    <title>Target Delivery Tracker 1</title>
     <%= csrf_meta_tags %>
 
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
@@ -13,9 +13,19 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
+    <link rel="stylesheet" href="/css/my_styles.css">
   </head>
 
   <body>
+    <% if notice.present? %>
+      <p><%= notice %></p>
+    <% end %>
+
+    <% if alert.present? %>
+      <p><%= alert %></p>
+    <% end %>
+
+    
     <%= yield %>
   </body>
 </html>
