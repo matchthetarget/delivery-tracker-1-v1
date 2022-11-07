@@ -40,12 +40,12 @@ describe "The home page" do
 
     visit("/")
     
-    expect(page).to have_tag("h2", :text => /Expecting a package?/i)
+    expect(page).to have_tag("h2", :text => /Expecting a package/)
   end
 end
 
 describe "The home page" do
-  it "has the text \"Know if something gets lost in the mail. \"", points: 1 do
+  it "has the text \"Know if something gets lost in the mail.\"", points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -62,7 +62,7 @@ describe "The home page" do
 
     visit("/")
     
-    expect(page).to have_text(/Know if something gets lost in the mail./i)
+    expect(page).to have_text(/Know if something gets lost in the mail/i)
   end
 end
 
@@ -111,31 +111,6 @@ describe "The home page" do
   end
 end
 
-describe "The background-color within the div of class \"waiting_on\"" do
-  it "is lightgoldenrodyellow", js: true, points: 1 do
-    visit("/user_sign_in")
-    user_jacob = User.new
-    user_jacob.email = "jacob_#{rand(100)}@example.com"
-    user_jacob.password = "password"
-    user_jacob.save
-
-    visit "/user_sign_in"
-    
-    within(:css, "form") do
-      fill_in "Email", with: user_jacob.email
-      fill_in "Password", with: user_jacob.password
-      find("button", :text => /Sign in/i ).click
-    end
-
-    visit("/")
-    waiting_on_div = find("div.waiting_on")
-
-    # waiting_on_div.assert_matches_style( 'background-color' => 'lightgoldenrodyellow')
-    expect(waiting_on_div).to have_background_color("yellow")
-
-  end
-end
-
 describe "The home page" do
   it "has a div element with the class \"received\"", points: 1 do
     visit("/user_sign_in")
@@ -181,28 +156,6 @@ describe "The home page" do
   end
 end
 
-describe "The background-color within the div of class \"received\"" do
-  it "is lightgreen",js: true, points: 1 do
-    visit("/user_sign_in")
-    user_jacob = User.new
-    user_jacob.email = "jacob_#{rand(100)}@example.com"
-    user_jacob.password = "password"
-    user_jacob.save
-
-    visit "/user_sign_in"
-    
-    within(:css, "form") do
-      fill_in "Email", with: user_jacob.email
-      fill_in "Password", with: user_jacob.password
-      find("button", :text => /Sign in/i ).click
-    end
-
-    visit("/")
-    received_div = find("div.received")
-
-    expect(received_div).to have_background_color("green")
-  end
-end
 
 describe "The home page" do
   it "has a label the text \"Description\" with a matching text input", points: 1,  hint: h("label_for_input copy_must_match") do
@@ -329,8 +282,56 @@ describe "The home page" do
   end
 end
 
+
+describe "The background-color within the div of class \"waiting_on\"" do
+  it "is lightgoldenrodyellow", js: true, points: 1 do
+    visit("/user_sign_in")
+    user_jacob = User.new
+    user_jacob.email = "jacob_#{rand(100)}@example.com"
+    user_jacob.password = "password"
+    user_jacob.save
+
+    visit "/user_sign_in"
+    
+    within(:css, "form") do
+      fill_in "Email", with: user_jacob.email
+      fill_in "Password", with: user_jacob.password
+      find("button", :text => /Sign in/i ).click
+    end
+
+    visit("/")
+    waiting_on_div = find("div.waiting_on")
+
+    expect(waiting_on_div).to have_background_color("yellow")
+  end
+end
+
+
+describe "The background-color within the div of class \"received\"" do
+  it "is lightgreen",js: true, points: 1 do
+    visit("/user_sign_in")
+    user_jacob = User.new
+    user_jacob.email = "jacob_#{rand(100)}@example.com"
+    user_jacob.password = "password"
+    user_jacob.save
+
+    visit "/user_sign_in"
+    
+    within(:css, "form") do
+      fill_in "Email", with: user_jacob.email
+      fill_in "Password", with: user_jacob.password
+      find("button", :text => /Sign in/i ).click
+    end
+
+    visit("/")
+    received_div = find("div.received")
+
+    expect(received_div).to have_background_color("green")
+  end
+end
+
 describe "The home page" do
-  it "has a button that logs a package delivery, and moves it to the \"Waiting on\" section", points: 2 do
+  it "has a button that logs a package delivery", points: 2 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"

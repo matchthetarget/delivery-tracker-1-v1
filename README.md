@@ -39,3 +39,14 @@ Other notes:
 - In the target, the field to enter a date is an `<input type="date">`. This input type may not work properly on all browsers — use Chrome when testing.
 
 All other implementation details are up to you.
+
+
+---
+
+- no ul > lis
+- check for h2's inside divs
+- remove extra date stuff
+- fix that one test with moving deliveries
+- run through test titles
+- order better
+- points better

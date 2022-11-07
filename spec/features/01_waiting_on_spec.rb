@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "The Waiting on section" do
-  it "displays each package delivery in an `<li>` element", points: 1 do
+  it "displays each package delivery description", points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -27,11 +27,9 @@ describe "The Waiting on section" do
       fill_in "Details", with: "This package is important!"
       find("button", :text => /Log delivery/ ).click
     end
-
-    expect(page).to have_tag("div.waiting_on") do     
-      with_tag("ul") do
-        with_tag("li", text: /New phone/)
-      end
+  
+    within(:css, "div.waiting_on") do
+      expect(page).to have_text(/New phone/)
     end
   end
 end
@@ -46,7 +44,6 @@ describe "The Waiting on section" do
 
     visit "/user_sign_in"
 
-    created_at = Time.now
 
     within(:css, "form") do
       fill_in "Email", with: user_jacob.email
@@ -83,7 +80,6 @@ describe "The text of the expected arrival date" do
 
     visit "/user_sign_in"
 
-    created_at = Time.now
 
     within(:css, "form") do
       fill_in "Email", with: user_jacob.email
@@ -188,5 +184,7 @@ end
 # Must send String containing Regex
 # returns first matching element (Capybara Node)
 def find_parent_element_from_text(text)
-  page.evaluate_script("Array.prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]")
+  node = page.evaluate_script("Array.prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]")
+  raise StandardError, "Unable to find text that matches #{text}" if node.blank?
+  node
 end
