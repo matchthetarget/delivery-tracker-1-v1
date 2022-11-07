@@ -149,7 +149,7 @@ describe "The Waiting on section" do
 end
 
 describe "The Waiting on section" do
-  it "has buttons to move todos to the \"Received\" section", points: 2 do
+  it "has buttons to move delivery packages to the \"Received\" section", points: 2 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
