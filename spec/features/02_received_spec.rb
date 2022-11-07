@@ -18,11 +18,11 @@ describe "The Received section" do
 
     visit("/")
 
-    date = 3.days.from_now.to_date
+    date = 3.days.from_now.to_date.strftime("%m/%d/%Y")
 
     within(:css, "form") do
       fill_in "Description", with: "New phone"
-      fill_in "Supposed to arrive on", with: date.to_s
+      fill_in "Supposed to arrive on", with: date
       fill_in "Details", with: "This package is important!"
       find("button", :text => /Log delivery/ ).click
     end
@@ -57,11 +57,11 @@ describe "The Received section" do
 
     visit("/")
 
-    date = 3.days.from_now.to_date
+    date = 3.days.from_now.to_date.strftime("%m/%d/%Y")
 
     within(:css, "form") do
       fill_in "Description", with: "New phone"
-      fill_in "Supposed to arrive on", with: date.to_s
+      fill_in "Supposed to arrive on", with: date
       fill_in "Details", with: "This package is important!"
       find("button", :text => /Log delivery/ ).click
     end
@@ -103,11 +103,11 @@ describe "The Received section" do
     end
 
     visit("/")
-    date = 3.days.from_now.to_date
+    date = 3.days.from_now.to_date.strftime("%m/%d/%Y")
 
     within(:css, "form") do
       fill_in "Description", with: "New phone"
-      fill_in "Supposed to arrive on", with: date.to_s
+      fill_in "Supposed to arrive on", with: date
       fill_in "Details", with: "This package is important!"
       find("button", :text => /Log delivery/ ).click
     end
