@@ -44,7 +44,6 @@ describe "The Waiting on section" do
 
     visit "/user_sign_in"
 
-
     within(:css, "form") do
       fill_in "Email", with: user_jacob.email
       fill_in "Password", with: user_jacob.password
@@ -62,49 +61,9 @@ describe "The Waiting on section" do
       find("button", :text => /Log delivery/ ).click
     end
 
-    expect(page).to have_tag("div.waiting_on") do     
-      with_tag("ul") do
-        with_tag("li", text: /Supposed to arrive on\s*#{date.to_s}/)
-      end
+    within(:css, "div.waiting_on") do
+      expect(page).to have_text(/Supposed to arrive on\s*#{date.to_s}/)
     end
-  end
-end
-
-describe "The text of the expected arrival date" do
-  it "is darkred when the date is more than 3 days ago", points: 1, js: true do
-    visit("/user_sign_in")
-    user_jacob = User.new
-    user_jacob.email = "jacob_#{rand(100)}@example.com"
-    user_jacob.password = "password"
-    user_jacob.save
-
-    visit "/user_sign_in"
-
-
-    within(:css, "form") do
-      fill_in "Email", with: user_jacob.email
-      fill_in "Password", with: user_jacob.password
-      find("button", :text => /Sign in/i ).click
-    end
-
-    visit("/")
-
-    date = 1.week.ago.to_date
-    formatted_date = date.strftime("%m/%d/%Y")
-
-    within(:css, "form") do
-      fill_in "Description", with: "New phone"
-      fill_in "Supposed to arrive on", with: formatted_date
-      fill_in "Details", with: "This package is important!"
-      find("button", :text => /Log delivery/ ).click
-    end
-
-    formatted_date.gsub("/", "\/")
-    date_pattern = "/Supposed to arrive on\\s*#{date}/"
-    visit "/"
-    element_with_late_date = find_parent_element_from_text(date_pattern)
-   
-    expect(element_with_late_date).to have_color("red")
   end
 end
 
@@ -146,7 +105,7 @@ describe "The Waiting on section" do
 end
 
 describe "The Waiting on section" do
-  it "has buttons to move delivery packages to the \"Received\" section", points: 2 do
+  it "has buttons to move each delivery packages to the \"Received\" section", points: 2 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -181,10 +140,3 @@ describe "The Waiting on section" do
   end
 end
 
-# Must send String containing Regex
-# returns first matching element (Capybara Node)
-def find_parent_element_from_text(text)
-  node = page.evaluate_script("Array.prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]")
-  raise StandardError, "Unable to find text that matches #{text}" if node.blank?
-  node
-end
