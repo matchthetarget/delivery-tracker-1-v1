@@ -3,7 +3,7 @@ task({ :sample_data => :environment}) do
   User.destroy_all
   Delivery.destroy_all
 
-  usernames = ["alice", "bob", "carol", "doug", "ellen"]
+  usernames = ["alice", "bob", "carol", "dave", "eve"]
 
   usernames.each do |username|
     user = User.new
@@ -11,11 +11,11 @@ task({ :sample_data => :environment}) do
     user.password = "password"
     user.save
 
-    20.times do
+    10.times do
       delivery = Delivery.new
       delivery.user_id = user.id
       delivery.description = Faker::Commerce.product_name
-      delivery.details = "#{["FedEx", "UPS", "USPS"].sample} tracking ##{rand(1000000000000)}"
+      delivery.details = "#{["FedEx", "UPS", "USPS"].sample} tracking ##{rand(1000000000000)}" if rand < 0.5
       delivery.supposed_to_arrive_on = Faker::Date.between(from: 1.month.ago, to: 2.weeks.from_now)
 
       if delivery.supposed_to_arrive_on < Time.now

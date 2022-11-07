@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  root "deliveries#index"
 
   # Routes for the Delivery resource:
 
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # READ
   get("/deliveries", { :controller => "deliveries", :action => "index" })
   
-  get("/deliveries/:path_id", { :controller => "deliveries", :action => "show" })
+  # get("/deliveries/:path_id", { :controller => "deliveries", :action => "show" })
   
   # UPDATE
   
