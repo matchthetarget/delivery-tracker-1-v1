@@ -4,7 +4,7 @@
 
 You should build an app that keeps track of packages for a user. [Here is a target to match.](https://delivery-tracker-1.matchthetarget.com)
 
-To explore, sign in with any of:
+To explore, sign up and create a few deliveries. You can also sign in with any of:
 
 - `alice@example.com`
 - `bob@example.com`
