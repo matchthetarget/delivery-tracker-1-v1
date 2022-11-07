@@ -45,9 +45,11 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'draft_matchers', github: 'jelaniwoods/draft_matchers', branch: 'main'
   gem 'factory_bot_rails'
   gem 'rspec-html-matchers'
   gem 'rspec-rails'
+  gem 'selenium-webdriver', "3.142.7"
   gem 'webmock'
 end
 
