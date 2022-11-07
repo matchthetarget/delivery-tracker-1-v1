@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "The Received section" do
-  it "displays each package delivery in an `<li>` element", points: 1 do
+  it "displays each package delivery description", points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -31,10 +31,8 @@ describe "The Received section" do
       find("button", :text => /Mark as received/ ).click
     end
 
-    expect(page).to have_tag("div.received") do     
-      with_tag("ul") do
-        with_tag("li", text: /New phone/)
-      end
+    within(:css, "div.received") do
+      expect(page).to have_text(/New phone/)
     end
   end
 end
@@ -77,14 +75,11 @@ describe "The Received section" do
     visit("/")
 
     formatted_updated_at_time = time_ago_in_words(updated_at)
-    expect(page).to have_tag("div.received") do     
-      with_tag("ul") do
-        with_tag("li", text: /Updated \s*#{formatted_updated_at_time} ago/)
-      end
+    within(:css, "div.waiting_on") do
+      expect(page).to have_text(/Updated \s*#{formatted_updated_at_time} ago/)
     end
   end
 end
-
 
 describe "The Received section" do
   it "has a link to delete deliveries with the text \"Delete\"", points: 2, hint: h("copy_must_match") do
@@ -119,7 +114,7 @@ describe "The Received section" do
     within(:css, "div.received li") do      
       find("a", :text => /Delete/i ).click
     end
-    
+
     expect(page).to_not have_content(/New phone/)
   end
 end

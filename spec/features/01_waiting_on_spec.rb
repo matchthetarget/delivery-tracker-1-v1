@@ -95,12 +95,7 @@ describe "The Waiting on section" do
       find("button", :text => /Log delivery/ ).click
     end
 
-    within(:css, "div.waiting_on li") do      
-      find("button", :text => /Mark as received/ ).click
-    end
-  
-    waiting_on_div = find("div.waiting_on")
-    expect(waiting_on_div).to_not have_content(/New phone/)
+    expect(page).to have_tag("button", :text => /Mark as received/)
   end
 end
 
@@ -135,8 +130,10 @@ describe "The Waiting on section" do
       find("button", :text => /Mark as received/ ).click
     end
 
+    waiting_on_div = find("div.waiting_on")
+    expect(waiting_on_div).to_not have_content(/New phone/)
+
     received_section_div = find("div.received")
-    expect(received_section_div).to have_text(/New phone/i)
+    expect(received_section_div).to have_text(/New phone/)
   end
 end
-

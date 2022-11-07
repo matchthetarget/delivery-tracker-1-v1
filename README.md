@@ -43,10 +43,7 @@ All other implementation details are up to you.
 
 ---
 
-- no ul > lis
 - check for h2's inside divs
-- remove extra date stuff
-- fix that one test with moving deliveries
 - run through test titles
 - order better
 - points better
