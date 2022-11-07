@@ -44,7 +44,6 @@ describe "The home page" do
   end
 end
 
-# TODO check position
 describe "The home page" do
   it "has the text \"Know if something gets lost in the mail. \"", points: 1 do
     visit("/user_sign_in")

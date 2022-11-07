@@ -93,21 +93,22 @@ describe "The text of the expected arrival date" do
 
     visit("/")
 
-    date = 4.days.ago.to_date
+    date = 1.week.ago.to_date
+    formatted_date = date.strftime("%m/%d/%Y")
 
     within(:css, "form") do
       fill_in "Description", with: "New phone"
-      fill_in "Supposed to arrive on", with: date.to_s
+      fill_in "Supposed to arrive on", with: formatted_date
       fill_in "Details", with: "This package is important!"
       find("button", :text => /Log delivery/ ).click
     end
 
-    delivery_list_item = find("div.waiting_on li")
-    text = "Supposed to arrive on #{date.to_s}"
-    p delivery_list_item.native.to_json
-    element = delivery_list_item.find(:xpath, "//*[contains (text(),'#{text}')]")
-    p element
-    expect(element).to have_color("red")
+    formatted_date.gsub("/", "\/")
+    date_pattern = "/Supposed to arrive on\\s*#{date}/"
+    visit "/"
+    element_with_late_date = find_parent_element_from_text(date_pattern)
+   
+    expect(element_with_late_date).to have_color("red")
   end
 end
 
@@ -182,4 +183,10 @@ describe "The Waiting on section" do
     received_section_div = find("div.received")
     expect(received_section_div).to have_text(/New phone/i)
   end
+end
+
+# Must send String containing Regex
+# returns first matching element (Capybara Node)
+def find_parent_element_from_text(text)
+  page.evaluate_script("Array.prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]")
 end
