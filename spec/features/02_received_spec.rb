@@ -190,55 +190,12 @@ end
 # Must send String containing Regex
 # returns first matching element (Capybara Node)
 def find_parent_element_from_text(text)
+  # Can't have variables, or the return value gets messed up
   js_code = "
   Array.from(document.querySelectorAll(\".waiting_on *\")).map( node => node.childNodes).map( (nodeList, index) => nodeList[index] = Array.from(nodeList) ).flat().filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
   "
 
-  node = page.evaluate_script(x)
+  node = page.evaluate_script(js_code)
   raise StandardError, "Unable to find text that matches #{text} in div with class 'waiting_on'" if node.blank?
   node
 end
-
-# Array.from(document.querySelectorAll(".waiting_on *")).map( node => node.childNodes).map( (nodeList, index) => nodeList[index] = Array.from(nodeList) ).flat().filter( node => node.textContent.match(/Supposed to arrive on\s*2022-10-31/) && (node.childNodes.length == 1))
-
-
-# def find_parent_element_from_text(text)
-#   # puts "Array.prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]"
-#   x = "
-#   list_of_lists = Array.prototype.slice.call(document.querySelectorAll(\".waiting_on *\"));
-#   list_of_lists.map( node => node.childNodes);
-#   newA = [];
-#   a = list_of_lists.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) );
-#   newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
-#   "
-
-#   # node = page.evaluate_script("var list_of_lists = Array.prototype.slice.call(document.querySelectorAll(\".waiting_on *\")).map( node => node.childNodes);var newA = []; var a = list_of_lists.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) ); newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]")
-#   node = page.evaluate_script(x)
-#   # page.execute_script("list_of_lists.map( node => node.childNodes)")
-#   # page.execute_script("var newA = [];")
-#   # page.execute_script("var a = list_of_lists.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) )")
-#   # node = page.evaluate_script(" newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]")
-#   # node = page.evaluate_script("[].prototype.slice.call(document.querySelector(\"div.waiting_on li\").childNodes).filter( node => node.textContent.match(#{text}))[0]")
-#   raise StandardError, "Unable to find text that matches #{text} in div with class 'waiting_on'" if node.blank?
-#   node
-# end
-
-# var list_of_lists = Array.prototype.slice.call(document.querySelectorAll(".waiting_on *")).map( node => node.childNodes);var newA = []; var a = list_of_lists.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) ); newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
-# newA.filter( node => node.textContent.match(#{text}))[0])
-# newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
-# newA.filter( node => node.textContent.match(/Supposed to arrive on\s*2022-10-31/))[0])
-# newA.filter( node => node.textContent.match(/Supposed to arrive on\s*2022-10-31/) && (node.childNodes.length == 1))[0]
-# /Supposed to arrive on\s*2022-10-31/
-# "
-# var list_of_lists = Array.prototype.slice.call(document.querySelectorAll(\".waiting_on *\"))
-# list_of_lists.map( node => node.childNodes);
-# var newA = [];
-# var a = list_of_lists.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) );
-# newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
-# "
-
-# var list_of_nodelists = Array.prototype.slice.call(document.querySelectorAll(".waiting_on *"))
-# var list_of_arrays = list_of_nodelists.map( node => node.childNodes);
-# var newA = [];
-# var a = list_of_arrays.map( nodeList => newA.push(...Array.prototype.slice.call(nodeList)) );
-# newA.filter( node => node.textContent.match(#{text}) && (node.childNodes.length == 1))[0]
