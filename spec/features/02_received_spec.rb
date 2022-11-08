@@ -120,7 +120,7 @@ describe "The Received section" do
 end
 
 describe "The home page" do
-  it "displays the messaage, \"Added to list\", after logging a delivery", points: 1, hint: h("flash_messages") do
+  it "displays the message, \"Added to list\", after logging a delivery", points: 1, hint: h("flash_messages") do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"

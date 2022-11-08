@@ -286,7 +286,7 @@ describe "The home page" do
 end
 
 
-describe "The background-color within the div of class \"waiting_on\"" do
+describe "The background-color of the div of class \"waiting_on\"" do
   it "is lightgoldenrodyellow", js: true, points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
@@ -310,7 +310,7 @@ describe "The background-color within the div of class \"waiting_on\"" do
 end
 
 
-describe "The background-color within the div of class \"received\"" do
+describe "The background-color of the div of class \"received\"" do
   it "is lightgreen",js: true, points: 1 do
     visit("/user_sign_in")
     user_jacob = User.new
