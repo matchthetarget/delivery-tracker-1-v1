@@ -195,7 +195,7 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has a label the text \"Supposed to arrive on\" with a matching input", points: 1,  hint: h("label_for_input copy_must_match") do
+  it "has a label with the text \"Supposed to arrive on\" with a matching input", points: 1,  hint: h("label_for_input copy_must_match") do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
