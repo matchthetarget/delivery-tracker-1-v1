@@ -39,4 +39,3 @@ Other notes:
 - In the target, the field to enter a date is an `<input type="date">`. This input type may not work properly on all browsers — use Chrome when testing.
 
 All other implementation details are up to you.
-
