@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "The Received section" do
-  it "displays each package delivery description", points: 1 do
+  it "displays each package delivery description", points: 1, js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -38,7 +38,7 @@ describe "The Received section" do
 end
 
 describe "The Received section" do
-  it "displays the formatted updated at time for each package", points: 1 do
+  it "displays the formatted updated at time for each package", points: 1, js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -82,7 +82,7 @@ describe "The Received section" do
 end
 
 describe "The Received section" do
-  it "has a link to delete deliveries with the text \"Delete\"", points: 2, hint: h("copy_must_match") do
+  it "has a link to delete deliveries with the text \"Delete\"", points: 2, hint: h("copy_must_match"), js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -120,7 +120,7 @@ describe "The Received section" do
 end
 
 describe "The home page" do
-  it "displays the message, \"Added to list\", after logging a delivery", points: 1, hint: h("flash_messages") do
+  it "displays the message, \"Added to list\", after logging a delivery", points: 1, hint: h("flash_messages"), js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"

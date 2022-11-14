@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "The Waiting on section" do
-  it "displays each package delivery description", points: 1 do
+  it "displays each package delivery description", points: 1, js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
@@ -68,7 +68,7 @@ describe "The Waiting on section" do
 end
 
 describe "The Waiting on section" do
-  it "has a button to mark a delivery as received with the text 'Mark as received'", points: 1, hints: h("copy_must_match") do
+  it "has a button to mark a delivery as received with the text 'Mark as received'", points: 1, js: true, hints: h("copy_must_match") do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"

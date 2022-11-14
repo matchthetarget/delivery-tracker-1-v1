@@ -334,7 +334,7 @@ describe "The background-color of the div of class \"received\"" do
 end
 
 describe "The home page" do
-  it "has a button that logs a package delivery", points: 2 do
+  it "has a button that logs a package delivery", points: 2, js: true do
     visit("/user_sign_in")
     user_jacob = User.new
     user_jacob.email = "jacob_#{rand(100)}@example.com"
